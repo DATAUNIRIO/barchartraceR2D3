@@ -372,38 +372,4 @@ server <- function(input, output, session) {
       file.copy(from = "www/out_bcr/barchartrace.html", con)
     }
   )
-  
-  ##-- Songs
-  observeEvent(input$mood_corona, {
-    output$audio <- renderUI({
-      mood <- tolower(input$mood_corona)
-      HTML(sprintf("<div align = 'right'; style = 'padding:5px; vertical-align:middle'>
-                      <div id='audioid'><<audio controls controlsList = 'autoplay loop; nodownload'><source src='mp3/%s.mp3' type='audio/mp3'></audio></div>
-                    </div>", mood))
-    })
-  })
-  observeEvent(input$mood_brands, {
-    output$audio <- renderUI({
-      mood <- tolower(input$mood_brands)
-      HTML(sprintf("<div align = 'right'; style = 'padding:5px; vertical-align:middle'>
-                      <audio controls controlsList = 'nodownload'><source src='mp3/%s.mp3' type='audio/mp3'></audio>
-                    </div>", mood))
-    })
-  })
-  observeEvent(input$mood_pkgs, {
-    output$audio <- renderUI({
-      mood <- tolower(input$mood_pkgs)
-      HTML(sprintf("<div align = 'right'; style = 'padding:5px; vertical-align:middle'>
-                      <audio controls controlsList = 'nodownload'><source src='mp3/%s.mp3' type='audio/mp3'></audio>
-                    </div>", mood))
-    })
-  })
-  observeEvent(input$mood_user, {
-    output$audio <- renderUI({
-      mood <- tolower(input$mood_user)
-      HTML(sprintf("<div align = 'right'; style = 'padding:5px; vertical-align:middle'>
-                      <audio controls controlsList = 'nodownload'><source src='mp3/%s.mp3' type='audio/mp3'></audio>
-                    </div>", mood))
-    })
-  })
 }

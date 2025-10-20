@@ -1,11 +1,6 @@
-material_page(
+ui = material_page(
   title = "",
   include_nav_bar = FALSE,
-  ##-- Including audio
-  tags$nav(
-    htmlOutput("audio"), 
-    style = "background-color:#f1f3f4"
-  ),
   ##-- Enabling shinyjs
   useShinyjs(),
   ##-- Enabling rintrojs
@@ -28,46 +23,14 @@ material_page(
       icons = c("ac_unit", "copyright", "build", "cloud_upload")
     ),
     br(), 
-    tags$div(style = "display:inherit; padding-top:3%; text-align:center;",
-             ##-- Twitter
-             tags$a(href = "https://twitter.com/https://twitter.com/share?ref_src=twsrc%5Etfw",
-                    class = "twitter-share-button",
-                    `data-hashtags` = "#rstats #rstudio #shinycontest #covid19 #coronavirus",
-                    `data-show-count` = "true",
-                    `data-url` = "https://voronoys.shinyapps.io/barchartraceR2D3",
-                    `data-text1` = "Look at this bar chart race!"),
-             
-             ##-- Facebook
-             tags$iframe(
-               src = "https://www.facebook.com/plugins/share_button.php?href=https://voronoys.shinyapps.io/barchartraceR2D3/&layout=button_count&size=small&width=148&height=20&appId",
-               width = "115",
-               height = "20",
-               scrolling = "no",
-               frameborder = "0",
-               allowTransparency = "true",
-               allow = "encrypted-media"
-             ),
-             
-             ##-- LinkedIn
-             tags$script(
-               src = "https://platform.linkedin.com/in.js",
-               type = "text/javascript",
-               "lang: en_US"
-             ),
-             tags$script(
-               type = "IN/Share",
-               `data-url` = "https://voronoys.shinyapps.io/barchartraceR2D3/"
-             )
-    ),
-    br(),
-    
+
     ##-- GitHub
-    tags$a(
-      href = "https://github.com/voronoys/barchartraceR2D3",
-      tags$i(
-        class = "fa fa-github", style = 'font-size:30px; color: black; display: list-item; padding-left: 10px; position: fixed; bottom: 70px;'
-      )
-    )
+  #  tags$a(
+  #    href = "https://github.com/voronoys/barchartraceR2D3",
+  #    tags$i(
+  #      class = "fa fa-github", style = 'font-size:30px; color: black; display: list-item; padding-left: 10px; position: fixed; bottom: 70px;'
+  #    )
+  #  )
   ),
   
   ##-- COVID-19 ----
@@ -143,13 +106,13 @@ material_page(
             size = "xs"
           ),
           ##-- Github
-          HTML("<a class='github-button'
-                   href='https://github.com/voronoys/barchartraceR2D3/archive/master.zip' 
-                   data-color-scheme='no-preference: light; light: light; dark: dark;' 
-                   aria-label='Download voronoys/barchartraceR2D3 on GitHub'>
-                   Download
-                </a>"
-          )
+        #  HTML("<a class='github-button'
+        #           href='https://github.com/voronoys/barchartraceR2D3/archive/master.zip' 
+        #           data-color-scheme='no-preference: light; light: light; dark: dark;' 
+        #           aria-label='Download voronoys/barchartraceR2D3 on GitHub'>
+        #           Download
+        #        </a>"
+        #  )
         )
       )
     )
@@ -530,8 +493,8 @@ material_page(
     )
   ),
   ##-- Footer ----
-  div(class = "footer",
-      div(includeHTML("html/google_analytics.html"))
-  ),
+  #div(class = "footer",
+      #div(includeHTML("html/google_analytics.html"))
+  #),
   HTML("<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='//platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','twitter-wjs');</script>")
 )
