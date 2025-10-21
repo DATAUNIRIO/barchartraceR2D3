@@ -16,8 +16,6 @@ links <- pg %>%
   keep(~ grepl("\\.zip$", .))
   #keep(~ grepl("download\\.inep\\.gov\\.br.*Microdados.*Censo.*Superior.*\\.zip$", .))
 
-
-# opcional: mostrar os links encontrados
 print(links)
 
 # criar pasta para salvar
@@ -43,19 +41,58 @@ message("Downloads completos!")
 #------------------------------------------------------------------------------------------
 #------------------------------------------------------------------------------------------
 #------------------------------------------------------------------------------------------
+#install.packages("zip")
 
-library(fs)
+library(zip)
 
-pasta_zip <- "microdados_censo_superior"
-arquivos_zip <- list.files(pasta_zip, pattern = "\\.zip$", full.names = TRUE)
-
-for (arq in arquivos_zip) {
-  destino <- file.path(pasta_zip)
-  dir.create(destino, showWarnings = FALSE)
+# Função com zip::unzip
+extrair_zip_latin1_v2 <- function(arquivo_zip, pasta_destino = 'C:/Users/08451589707/Documents/mcs/') {
+  # Criar pasta de destino
+  if (!dir.exists(pasta_destino)) {
+    dir.create(pasta_destino)
+  }
   
-  message("Extraindo via 7-Zip: ", basename(arq))
-  system2("7z", args = c("x", shQuote(arq), paste0("-o", shQuote(pasta_zip)), "-y"))
+  # Extrair com zip::unzip (geralmente lida melhor com encoding)
+  zip::unzip(arquivo_zip, exdir = pasta_destino)
+  
+  return(pasta_destino)
 }
 
+# Extrair todos os arquivos
+arquivos_zip <- list.files(path='C:/Users/08451589707/Documents/microdados_censo_superior/' , pattern = "\\.zip$", full.names = TRUE)
+lapply(arquivos_zip, extrair_zip_latin1_v2)
 
+#------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------------------
+# Correcao de nome de pasta
+
+# Correção direta para o padrão que você mencionou
+corrigir_nomes_educacao <- function(caminho = 'C:/Users/08451589707/Documents/mcs/') {
+  pastas <- list.dirs(caminho, full.names = FALSE, recursive = FALSE)
+  
+  for (pasta in pastas) {
+    # Padrão específico para "Educa��o"
+    if (grepl("Educa..o", pasta)) {
+      nome_corrigido <- gsub("Microdados do Censo da Educa..o", "Educ", pasta)
+      
+      # Tentar correção completa com iconv
+      nome_corrigido <- tryCatch({
+        iconv(nome_corrigido, from = "latin1", to = "UTF-8")
+      }, error = function(e) {
+        nome_corrigido
+      })
+      
+      caminho_original <- file.path(caminho, pasta)
+      caminho_novo <- file.path(caminho, nome_corrigido)
+      
+      if (!file.exists(caminho_novo)) {
+        file.rename(caminho_original, caminho_novo)
+        cat(sprintf("Corrigido: '%s' -> '%s'\n", pasta, nome_corrigido))
+      }
+    }
+  }
+}
+
+corrigir_nomes_educacao()
 
